@@ -1,2 +1,2 @@
 # gui_calc
- GUI calculator
+ GUI calculator using C#
