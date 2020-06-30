@@ -6,23 +6,49 @@
         xmlns:local="clr-namespace:gui_calc"
         mc:Ignorable="d"
         Title="gui_calc" Height="450" Width="800" Foreground="#FF2D238B">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="19*"/>
-			<ColumnDefinition Width="245*"/>
-		</Grid.ColumnDefinitions>
-		<Button x:Name="Number1" Content="1" HorizontalAlignment="Left" Margin="40,320,0,0" VerticalAlignment="Top" Width="99" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number2" Content="2" HorizontalAlignment="Left" Margin="140,320,0,0" VerticalAlignment="Top" Width="99" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number3" Content="3" HorizontalAlignment="Left" Margin="240,320,0,0" VerticalAlignment="Top" Width="100" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number4" Content="4" HorizontalAlignment="Left" Margin="40,283,0,0" VerticalAlignment="Top" Width="99" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number5" Content="5" HorizontalAlignment="Left" Margin="140,283,0,0" VerticalAlignment="Top" Width="99" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number6" Content="6" HorizontalAlignment="Left" Margin="240,283,0,0" VerticalAlignment="Top" Width="100" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number7" Content="7" HorizontalAlignment="Left" Margin="40,245,0,0" VerticalAlignment="Top" Width="99" Height="37" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number8" Content="8" HorizontalAlignment="Left" Margin="140,245,0,0" VerticalAlignment="Top" Width="99" Height="37" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number9" Content="9" HorizontalAlignment="Left" Margin="240,245,0,0" VerticalAlignment="Top" Width="100" Height="37" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="PlusMinus" Content="+/-" HorizontalAlignment="Left" Margin="40,357,0,0" VerticalAlignment="Top" Width="99" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Number0" Content="0" HorizontalAlignment="Left" Margin="140,357,0,0" VerticalAlignment="Top" Width="99" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<Button x:Name="Decimal" Content="." HorizontalAlignment="Left" Margin="240,357,0,0" VerticalAlignment="Top" Width="100" Height="36" FontSize="20" FontFamily="Arial" Grid.Column="1" Click="Button_Click"/>
-		<TextBlock x:Name="CurrentNumber" Grid.Column="1" HorizontalAlignment="Left" Margin="40,171,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="39" Width="300" FontSize="20" TextAlignment="Right"/>
+	<Window.Resources>
+		<Style x:Key="baseButton" TargetType="FrameworkElement">
+			<Setter Property="Height" Value="35" />
+			<Setter Property="Width" Value="100" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Top" />
+		</Style>
+		<Style x:Key="numberButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+			<Setter Property="Background" Value="Black" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontFamily" Value="Arial" />
+			<Setter Property="FontSize" Value="20" />
+			<Setter Property="BorderThickness" Value="0" />
+		</Style>
+		<Style x:Key="operatorButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
+			<Setter Property="Background" Value="#1B1B1B" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontFamily" Value="Arial" />
+			<Setter Property="FontSize" Value="30" />
+			<Setter Property="BorderThickness" Value="0" />
+		</Style>
+	</Window.Resources>
+	<Grid Background="#343434">
+		<TextBlock x:Name="CurrentNumber" Margin="40,102,350,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="35" Width="403" FontSize="20" TextAlignment="Right" FontFamily="Arial" Foreground="White"/>
+		<Button x:Name="Number1" Content="1" Margin="40,250,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number2" Content="2" Margin="141,250,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number3" Content="3" Margin="242,250,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number4" Content="4" Margin="40,214,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number5" Content="5" Margin="141,214,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number6" Content="6" Margin="242,214,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number7" Content="7" Margin="40,178,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number8" Content="8" Margin="141,178,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number9" Content="9" Margin="242,178,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="PlusMinus" Content="+/-" Margin="40,286,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number0" Content="0" Margin="141,286,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Decimal" Content="." Margin="242,286,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Divide" Content="&#x00F7;" Margin="343,178,0,0" Style="{StaticResource operatorButton}" Click="OperatorClick"/>
+		<Button x:Name="Multiply" Content="&#x00D7;" Margin="343,214,0,0" Style="{StaticResource operatorButton}" Click="OperatorClick"/>
+		<Button x:Name="Minus" Content="&#x2212;" Margin="343,250,0,0" Style="{StaticResource operatorButton}" Click="OperatorClick"/>
+		<Button x:Name="Plus" Content="+" Margin="343,286,0,0" Style="{StaticResource operatorButton}" Click="OperatorClick"/>
+		<Button x:Name="Equal" Content="=" Margin="40,322,0,0" Style="{StaticResource operatorButton}" Width="403" Click="OperatorClick"/>
+		<Button x:Name="Clear" Content="C" Margin="242,142,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Backspace" Content="&#x232B;" Margin="343,142,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<TextBlock x:Name="CurrentCalculation" Margin="40,80,349,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="20" Width="403" FontSize="10" TextAlignment="Right" FontFamily="Arial" Foreground="White"/>
 	</Grid>
 </Window>

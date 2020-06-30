@@ -28,13 +28,19 @@ namespace gui_calc
 		private int histIndex = 0;
 
 		// button click action
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void NumberClick(object sender, RoutedEventArgs e)
 		{
 			// get the content of the button
 			var content = (sender as Button).Content;
 			// update the number box
-			CurrentNumber.Text = ui.ClickAction((string)content);
-
+			CurrentNumber.Text = ui.NumberAdd((string)content);
+		}
+		private void OperatorClick(object sender, RoutedEventArgs e)
+		{
+			// get the content of the button
+			var content = (sender as Button).Content;
+			// update the number box
+			CurrentCalculation.Text = ui.OperatorAdd((string)content);
 		}
 		public MainWindow()
 		{
