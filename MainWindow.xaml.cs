@@ -34,13 +34,29 @@ namespace gui_calc
 			var content = (sender as Button).Content;
 			// update the number box
 			CurrentNumber.Text = ui.NumberAdd((string)content);
+			CurrentCalculation.Text = ui.GetEquation();
 		}
 		private void OperatorClick(object sender, RoutedEventArgs e)
 		{
 			// get the content of the button
 			var content = (sender as Button).Content;
-			// update the number box
+			// update the current calculation box and the number box
 			CurrentCalculation.Text = ui.OperatorAdd((string)content);
+			CurrentNumber.Text = ui.GetNumString();
+
+			// if "=" is entered, add it to the listbox
+			if ((string)content == "=")
+			{
+				ListBoxItem newItem = new ListBoxItem();
+				newItem.Content = new TextBlock
+				{
+					Text = ui.GetEquation() + ui.GetNumString(),
+					TextWrapping = TextWrapping.Wrap,
+					Width = 240,
+					Padding = new Thickness(5, 5, 5, 5)
+				};
+				CalculationHistory.Items.Insert(0, newItem);
+			}
 		}
 		public MainWindow()
 		{

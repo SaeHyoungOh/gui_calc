@@ -32,7 +32,15 @@ namespace gui_calc.Class
 		// add an operator to the list
 		public int AddOper(char input)
 		{
-			operList.Add(input);
+			if (operList.Count < numList.Count)
+			{
+				operList.Add(input);
+			}
+			// if the user inputs an operator more than once, replace it
+			else
+			{
+				operList[operList.Count - 1] = input;
+			}
 			return operList.Count;
 		}
 
@@ -66,6 +74,23 @@ namespace gui_calc.Class
 			return runningResult;
 		}
 
+		// get the equation in string
+		public string GetEquation()
+		{
+			string result = "";
+
+			for (int i = 0; i < numList.Count; i++)
+			{
+				result = result + numList[i] + " " + operList[i] + " ";
+				if (i == numList.Count - 1)
+				{
+					result.TrimEnd();
+				}
+			}
+
+			return result;
+		}
+
 		// clear all lists
 		public void Clear()
 		{
@@ -74,31 +99,28 @@ namespace gui_calc.Class
 			runningResult = 0;
 		}
 
-		// add a number to runningResult
-		public double Add(int pos)
+		// do the calculation with the operator to the running result and return it
+		public double Calculate(char oper)
 		{
-			runningResult += numList[pos];
-			return runningResult;
-		}
-
-		// subtract runningResult by a number
-		public double Subtract(int pos)
-		{
-			runningResult -= numList[pos];
-			return runningResult;
-		}
-
-		// multiply runningResult by a number
-		public double Multiply(int pos)
-		{
-			runningResult *= numList[pos];
-			return runningResult;
-		}
-
-		// divide runningResult by a number
-		public double Divide(int pos)
-		{
-			runningResult /= numList[pos];
+			switch (oper)
+			{
+				// add a number to runningResult
+				case '+':
+					runningResult += numList[numList.Count - 1];
+					break;
+				// subtract runningResult by a number
+				case '-':
+					runningResult -= numList[numList.Count - 1];
+					break;
+				// multiply runningResult by a number
+				case '*':
+					runningResult *= numList[numList.Count - 1];
+					break;
+				// divide runningResult by a number
+				case '/':
+					runningResult /= numList[numList.Count - 1];
+					break;
+			}
 			return runningResult;
 		}
 	}
