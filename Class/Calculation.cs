@@ -9,7 +9,6 @@ namespace gui_calc.Class
 	/*
 	 * Class to hold numbers and calculate them
 	 */
-
 	public class Calculation
 	{
 		private List<double> numList = new List<double>();

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gui_calc"
         mc:Ignorable="d"
-        Title="gui_calc" Height="450" Width="800" Foreground="#FF2D238B">
+        Title="gui_calc" Height="400" Width="750" ResizeMode="CanMinimize" Foreground="#FF2D238B">
 	<Window.Resources>
 		<Style x:Key="baseButton" TargetType="Button">
 			<Setter Property="Height" Value="35" />
@@ -22,12 +22,21 @@
 			<Setter Property="Background" Value="Black" />
 			<Setter Property="FontSize" Value="20" />
 		</Style>
-		<Style TargetType="TextBlock">
+		<Style  x:Key="TitleText" TargetType="TextBlock">
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="FontFamily" Value="Arial" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontSize" Value="24" />
+			<Setter Property="TextAlignment" Value="Center" />
+		</Style>
+		<Style  x:Key="RunningDisplay" TargetType="TextBlock">
 			<Setter Property="TextWrapping" Value="Wrap" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="TextAlignment" Value="Right" />
 			<Setter Property="FontFamily" Value="Arial" />
 			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Padding" Value="0, 5, 15, 0" />
 		</Style>
 		<Style TargetType="ListBoxItem">
 			<Setter Property="VerticalAlignment" Value="Top" />
@@ -39,32 +48,34 @@
 		</Style>
 	</Window.Resources>
 	<Grid Background="#343434">
-		<TextBlock x:Name="CurrentCalculation" Margin="100,115,289,0" Text="" Height="20" Width="403" Padding="0, 5, 15, 0" FontSize="15" />
-		<TextBlock x:Name="CurrentNumber" Margin="100,140,289,0" Text="0" Height="45" Width="403" Padding="0, 5, 15, 0" FontSize="30" />
+		<TextBlock x:Name="CurrentCalculation" Margin="30,55,0,0" Text="" Height="20" Width="403" Style="{StaticResource RunningDisplay}" FontSize="15" HorizontalAlignment="Left" />
+		<TextBlock x:Name="CurrentNumber" Margin="30,80,0,0" Text="0" Height="45" Width="403" Style="{StaticResource RunningDisplay}" FontSize="30" HorizontalAlignment="Left" />
 
-		<Button x:Name="Number1" Content="1" Margin="100,298,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number2" Content="2" Margin="201,298,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number3" Content="3" Margin="302,298,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number4" Content="4" Margin="100,262,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number5" Content="5" Margin="201,262,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number6" Content="6" Margin="302,262,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number7" Content="7" Margin="100,226,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number8" Content="8" Margin="201,226,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number9" Content="9" Margin="302,226,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="PlusMinus" Content="+/-" Margin="100,334,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Number0" Content="0" Margin="201,334,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
-		<Button x:Name="Decimal" Content="." Margin="302,334,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number1" Content="1" Margin="30,238,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number2" Content="2" Margin="131,238,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number3" Content="3" Margin="232,238,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number4" Content="4" Margin="30,202,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number5" Content="5" Margin="131,202,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number6" Content="6" Margin="232,202,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number7" Content="7" Margin="30,166,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number8" Content="8" Margin="131,166,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number9" Content="9" Margin="232,166,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="PlusMinus" Content="+/-" Margin="30,274,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Number0" Content="0" Margin="131,274,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
+		<Button x:Name="Decimal" Content="." Margin="232,274,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
 
-		<Button x:Name="Divide" Content="&#x00F7;" Margin="403,226,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
-		<Button x:Name="Multiply" Content="&#x00D7;" Margin="403,262,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
-		<Button x:Name="Minus" Content="&#x2212;" Margin="403,298,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
-		<Button x:Name="Plus" Content="+" Margin="403,334,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
-		<Button x:Name="Equal" Content="=" Margin="100,370,0,0" Style="{StaticResource baseButton}" Width="403" Click="OperatorClick"/>
+		<Button x:Name="Divide" Content="&#x00F7;" Margin="333,166,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
+		<Button x:Name="Multiply" Content="&#x00D7;" Margin="333,202,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
+		<Button x:Name="Minus" Content="&#x2212;" Margin="333,238,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
+		<Button x:Name="Plus" Content="+" Margin="333,274,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
+		<Button x:Name="Equal" Content="=" Margin="30,310,0,0" Style="{StaticResource baseButton}" Width="403" Click="OperatorClick"/>
 
-		<Button x:Name="Clear" Content="C" Margin="302,190,0,0" Style="{StaticResource baseButton}" FontSize="20" Click="NumberClick"/>
-		<Button x:Name="Backspace" Content="&#x232B;" Margin="403,190,0,0" Style="{StaticResource baseButton}" FontSize="20" Click="NumberClick"/>
+		<Button x:Name="Clear" Content="C" Margin="232,130,0,0" Style="{StaticResource baseButton}" FontSize="20" Click="NumberClick"/>
+		<Button x:Name="Backspace" Content="&#x232B;" Margin="333,130,0,0" Style="{StaticResource baseButton}" FontSize="20" Click="NumberClick"/>
 
-		<ListBox x:Name="CalculationHistory" HorizontalAlignment="Left" Height="254" Margin="508,115,0,0" VerticalAlignment="Top" Width="275" Background="#343434" Foreground="White" BorderThickness="0">
+		<ListBox x:Name="CalculationHistory" HorizontalAlignment="Left" Height="290" Margin="438,55,0,0" VerticalAlignment="Top" Width="275" Background="#343434" Foreground="White" BorderBrush="Gray">
 		</ListBox>
+		<TextBlock Text="Calculator" Margin="30,16,0,0" Width="403" Style="{StaticResource TitleText}" />
+		<TextBlock Text="History" Margin="438,16,0,0" Width="275" Style="{StaticResource TitleText}" />
 	</Grid>
 </Window>

@@ -9,6 +9,9 @@ using System.Windows.Controls;
 
 namespace gui_calc.Class
 {
+	/*
+	 * Class to provide interface between GUI and Calculation class
+	 */
 	class GuiInterface
 	{
 		private List<Calculation> history = new List<Calculation>();
@@ -55,9 +58,16 @@ namespace gui_calc.Class
 			{
 				endOfEquation = false;
 			}
+
+			// if previous entry was an operator, reset the number string
 			if (numberProcessing)
 			{
-				numString = "";
+				// change of signs is an exception
+				if (sender != "+/-")
+				{
+					numString = "";
+				}
+
 				numberProcessing = false;
 				if (history[histIndex].GetOperSize() == 0)
 				{

@@ -23,9 +23,6 @@ namespace gui_calc
 	public partial class MainWindow : Window
 	{
 		private GuiInterface ui = new GuiInterface();
-		private List<Calculation> calc = new List<Calculation>();
-		private List<char> allowedOper = new List<char>() { '+', '-', '*', '/', '=' };
-		private int histIndex = 0;
 
 		// button click action
 		private void NumberClick(object sender, RoutedEventArgs e)
@@ -52,6 +49,7 @@ namespace gui_calc
 				{
 					Text = ui.GetEquation() + ui.GetNumString(),
 					TextWrapping = TextWrapping.Wrap,
+					TextAlignment = TextAlignment.Right,
 					Width = 240,
 					Padding = new Thickness(5, 5, 5, 5)
 				};
