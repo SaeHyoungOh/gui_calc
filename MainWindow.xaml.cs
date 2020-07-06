@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,15 @@ namespace gui_calc
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		private GuiInterface ui = new GuiInterface();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public ObservableCollection<string> HistoryList { get; set; } = new ObservableCollection<string>();
 
 		// button click action
 		private void NumberClick(object sender, RoutedEventArgs e)
@@ -30,35 +39,21 @@ namespace gui_calc
 			// get the content of the button
 			var content = (sender as Button).Content;
 			// update the number box
-			CurrentNumber.Text = ui.NumberAdd((string)content);
-			CurrentCalculation.Text = ui.GetEquation();
+			ui.NumberAdd((string)content);
 		}
+
 		private void OperatorClick(object sender, RoutedEventArgs e)
 		{
 			// get the content of the button
 			var content = (sender as Button).Content;
 			// update the current calculation box and the number box
-			CurrentCalculation.Text = ui.OperatorAdd((string)content);
-			CurrentNumber.Text = ui.GetNumString();
-
-			// if "=" is entered, add it to the listbox
-			if ((string)content == "=")
-			{
-				ListBoxItem newItem = new ListBoxItem();
-				newItem.Content = new TextBlock
-				{
-					Text = ui.GetEquation() + ui.GetNumString(),
-					TextWrapping = TextWrapping.Wrap,
-					TextAlignment = TextAlignment.Right,
-					Width = 240,
-					Padding = new Thickness(5, 5, 5, 5)
-				};
-				CalculationHistory.Items.Insert(0, newItem);
-			}
+			ui.OperatorAdd((string)content);
 		}
+
 		public MainWindow()
 		{
 			InitializeComponent();
+			DataContext = ui;
 		}
 	}
 }

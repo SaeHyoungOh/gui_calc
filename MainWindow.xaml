@@ -1,56 +1,76 @@
 ﻿<Window x:Class="gui_calc.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:gui_calc"
-        mc:Ignorable="d"
-        Title="gui_calc" Height="400" Width="750" ResizeMode="CanMinimize" Foreground="#FF2D238B">
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:gui_calc"
+		mc:Ignorable="d"
+		Title="gui_calc" Height="400" Width="750" ResizeMode="CanMinimize" Foreground="#FF2D238B">
 	<Window.Resources>
 		<Style x:Key="baseButton" TargetType="Button">
-			<Setter Property="Height" Value="35" />
-			<Setter Property="Width" Value="100" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="Arial" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Background" Value="#1B1B1B" />
-			<Setter Property="FontSize" Value="30" />
+			<Setter Property="Height" Value="35"/>
+			<Setter Property="Width" Value="100"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="FontFamily" Value="Arial"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Background" Value="#1B1B1B"/>
+			<Setter Property="FontSize" Value="30"/>
 		</Style>
 		<Style x:Key="numberButton" TargetType="Button" BasedOn="{StaticResource baseButton}">
-			<Setter Property="Background" Value="Black" />
-			<Setter Property="FontSize" Value="20" />
+			<Setter Property="Background" Value="Black"/>
+			<Setter Property="FontSize" Value="20"/>
 		</Style>
 		<Style  x:Key="TitleText" TargetType="TextBlock">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="Arial" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="FontSize" Value="24" />
-			<Setter Property="TextAlignment" Value="Center" />
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="FontFamily" Value="Arial"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="TextAlignment" Value="Center"/>
 		</Style>
 		<Style  x:Key="RunningDisplay" TargetType="TextBlock">
-			<Setter Property="TextWrapping" Value="Wrap" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="TextAlignment" Value="Right" />
-			<Setter Property="FontFamily" Value="Arial" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Padding" Value="0, 5, 15, 0" />
+			<Setter Property="TextWrapping" Value="Wrap"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="TextAlignment" Value="Right"/>
+			<Setter Property="FontFamily" Value="Arial"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Padding" Value="0, 5, 15, 0"/>
 		</Style>
 		<Style TargetType="ListBoxItem">
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="Arial" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Padding" Value="5, 5, 5, 5" />
-			<Setter Property="HorizontalContentAlignment" Value="Right" />
-			<Setter Property="FontSize" Value="20" />
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="FontFamily" Value="Arial"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Padding" Value="5, 5, 5, 5"/>
+			<Setter Property="HorizontalContentAlignment" Value="Right"/>
+			<Setter Property="FontSize" Value="20"/>
 		</Style>
 	</Window.Resources>
+	
 	<Grid Background="#343434">
-		<TextBlock x:Name="CurrentCalculation" Margin="30,55,0,0" Text="" Height="20" Width="403" Style="{StaticResource RunningDisplay}" FontSize="15" HorizontalAlignment="Left" />
-		<TextBlock x:Name="CurrentNumber" Margin="30,80,0,0" Text="0" Height="45" Width="403" Style="{StaticResource RunningDisplay}" FontSize="30" HorizontalAlignment="Left" />
+		<!-- titles -->
+		<TextBlock Text="Calculator" Margin="30,16,0,0" Width="403" Style="{StaticResource TitleText}"/>
+		<TextBlock Text="History" Margin="438,16,0,0" Width="275" Style="{StaticResource TitleText}"/>
+		
+		<TextBlock x:Name="CurrentCalculation"
+			Margin="30,55,0,0"
+			Text="{Binding Equation}"
+			Height="20"
+			Width="403"
+			Style="{StaticResource RunningDisplay}"
+			FontSize="15"
+			HorizontalAlignment="Left"/>
+		<TextBlock x:Name="CurrentNumber"
+			Margin="30,80,0,0"
+			Text="{Binding DisplayNumber}"
+			Height="45"
+			Width="403"
+			Style="{StaticResource RunningDisplay}"
+			FontSize="30"
+			HorizontalAlignment="Left"/>
 
+		<!-- number (black) buttons) -->
 		<Button x:Name="Number1" Content="1" Margin="30,238,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
 		<Button x:Name="Number2" Content="2" Margin="131,238,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
 		<Button x:Name="Number3" Content="3" Margin="232,238,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
@@ -64,6 +84,7 @@
 		<Button x:Name="Number0" Content="0" Margin="131,274,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
 		<Button x:Name="Decimal" Content="." Margin="232,274,0,0" Style="{StaticResource numberButton}" Click="NumberClick"/>
 
+		<!-- operator (gray) buttons) -->
 		<Button x:Name="Divide" Content="&#x00F7;" Margin="333,166,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
 		<Button x:Name="Multiply" Content="&#x00D7;" Margin="333,202,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
 		<Button x:Name="Minus" Content="&#x2212;" Margin="333,238,0,0" Style="{StaticResource baseButton}" Click="OperatorClick"/>
@@ -73,9 +94,23 @@
 		<Button x:Name="Clear" Content="C" Margin="232,130,0,0" Style="{StaticResource baseButton}" FontSize="20" Click="NumberClick"/>
 		<Button x:Name="Backspace" Content="&#x232B;" Margin="333,130,0,0" Style="{StaticResource baseButton}" FontSize="20" Click="NumberClick"/>
 
-		<ListBox x:Name="CalculationHistory" HorizontalAlignment="Left" Height="290" Margin="438,55,0,0" VerticalAlignment="Top" Width="275" Background="#343434" Foreground="White" BorderBrush="Gray">
+		<!-- History side -->
+		<ListBox x:Name="CalculationHistory"
+				 ItemsSource="{Binding DisplayHistory}"
+				 HorizontalAlignment="Left"
+				 VerticalAlignment="Top"
+				 Height="290"
+				 Width="275"
+				 Background="#343434"
+				 Margin="438,55,0,0"
+				 Foreground="White"
+				 BorderBrush="Gray">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock
+						Text="{Binding}"/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
 		</ListBox>
-		<TextBlock Text="Calculator" Margin="30,16,0,0" Width="403" Style="{StaticResource TitleText}" />
-		<TextBlock Text="History" Margin="438,16,0,0" Width="275" Style="{StaticResource TitleText}" />
 	</Grid>
 </Window>
