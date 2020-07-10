@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using gui_calc.Class;
+using gui_calc.ViewModel;
 
 namespace gui_calc
 {
@@ -24,36 +24,11 @@ namespace gui_calc
 	public partial class MainWindow : Window
 	{
 		/// <summary>
-		/// 
+		/// MainWindow method
 		/// </summary>
-		private GuiInterface ui = new GuiInterface();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public ObservableCollection<string> HistoryList { get; set; } = new ObservableCollection<string>();
-
-		// button click action
-		private void NumberClick(object sender, RoutedEventArgs e)
-		{
-			// get the content of the button
-			var content = (sender as Button).Content;
-			// update the number box
-			ui.NumberAdd((string)content);
-		}
-
-		private void OperatorClick(object sender, RoutedEventArgs e)
-		{
-			// get the content of the button
-			var content = (sender as Button).Content;
-			// update the current calculation box and the number box
-			ui.OperatorAdd((string)content);
-		}
-
 		public MainWindow()
 		{
 			InitializeComponent();
-			DataContext = ui;
 		}
 	}
 }

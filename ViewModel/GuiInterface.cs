@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace gui_calc.Class
+namespace gui_calc.ViewModel
 {
-	/*
-	 * Class to provide interface between GUI and Calculation class
-	 */
+	/// <summary>
+	/// Class to provide interface between GUI and Calculation class
+	/// </summary>
 	public class GuiInterface : INotifyPropertyChanged
 	{
 		/// <summary>
@@ -49,6 +49,11 @@ namespace gui_calc.Class
 		}
 
 		/// <summary>
+		/// required field for DisplayNumber property
+		/// </summary>
+		private string displayNumber;
+
+		/// <summary>
 		/// numbers and oeprators clicked so far for the current calculation
 		/// </summary>
 		public string Equation
@@ -64,6 +69,11 @@ namespace gui_calc.Class
 				OnPropertyChanged();
 			}
 		}
+		
+		/// <summary>
+		/// required field for Equation property
+		/// </summary>
+		private string equation;
 
 		/// <summary>
 		/// a list of previous equations to display on view
@@ -83,6 +93,11 @@ namespace gui_calc.Class
 		}
 
 		/// <summary>
+		/// required field for DisplayHistory property
+		/// </summary>
+		private ObservableCollection<string> displayHistory;
+
+		/// <summary>
 		/// currently a number is being processed, as oppsed to an operator
 		/// </summary>
 		private bool numberProcessing = false;
@@ -91,17 +106,21 @@ namespace gui_calc.Class
 		/// it is a state where "=" is entered most recently
 		/// </summary>
 		private bool endOfEquation = false;
-		private string displayNumber;
-		private string equation;
-		private ObservableCollection<string> displayHistory;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		/// <summary>
+		/// helper method to update View using PropertyChanged
+		/// </summary>
+		/// <param name="name"></param>
 		protected void OnPropertyChanged([CallerMemberName] string name = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
+		/// <summary>
+		/// constructor to instantiate lists and initialize variables
+		/// </summary>
 		public GuiInterface()
 		{
 			history = new List<Calculation>();
@@ -113,6 +132,9 @@ namespace gui_calc.Class
 			Equation = string.Empty;
 		}
 
+		/// <summary>
+		/// changes signs of the number
+		/// </summary>
 		private void PlusMinus()
 		{
 			// nothing to do for zero
@@ -131,8 +153,12 @@ namespace gui_calc.Class
 			}
 		}
 
-		// add number character to number string
-		public string NumberAdd(string sender)
+		/// <summary>
+		/// add number character to number string (DisplayNumber)
+		/// </summary>
+		/// <param name="sender">the number or symbol entered by user</param>
+		/// <returns>DisplayNumber</returns>
+		protected void NumberAdd(string sender)
 		{
 			// start a new equation
 			if (endOfEquation)
@@ -169,7 +195,7 @@ namespace gui_calc.Class
 				history[histIndex].Clear();
 			}
 			// delete one character in number string
-			else if (sender == "\u232B")
+			else if (sender == "B")
 			{
 				if (DisplayNumber.Length > 0)
 				{
@@ -197,12 +223,14 @@ namespace gui_calc.Class
 				}
 
 			}
-
-			return DisplayNumber;
 		}
 
-		// add operator to the equation and return the whole equation
-		public string OperatorAdd(string sender)
+		/// <summary>
+		/// add operator to the equation and return 
+		/// </summary>
+		/// <param name="sender">the operator entered by user</param>
+		/// <returns>the whole equation formatted to display</returns>
+		protected void OperatorAdd(char oper)
 		{
 			// add number string to equation
 			if (!numberProcessing || endOfEquation)
@@ -226,24 +254,6 @@ namespace gui_calc.Class
 
 			pos++;
 
-			// add operator to the equation
-			char oper;
-			switch (sender)
-			{
-				case "\u00F7":
-					oper = '/';
-					break;
-				case "\u00D7":
-					oper = '*';
-					break;
-				case "\u2212":
-					oper = '-';
-					break;
-				default:
-					oper = sender[0];
-					break;
-			}
-
 			// if "=" is entered after "=", re-do the previous operation
 			if (endOfEquation && history[histIndex - 1].GetOperSize() > 1 && oper == '=')
 			{
@@ -257,7 +267,7 @@ namespace gui_calc.Class
 			}
 
 			history[histIndex].AddOper(oper);               // add the operator
-			Equation = history[histIndex].GetEquation();    // to return
+			Equation = history[histIndex].GetEquation();    // string to return
 
 			// if "=" is entered, start a new calculation
 			if (oper == '=')
@@ -269,8 +279,6 @@ namespace gui_calc.Class
 				pos = 0;
 				endOfEquation = true;
 			}
-
-			return Equation;
 		}
 	}
 }
