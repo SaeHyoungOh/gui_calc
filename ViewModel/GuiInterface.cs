@@ -4,10 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace gui_calc.ViewModel
 {
@@ -272,7 +268,7 @@ namespace gui_calc.ViewModel
 			// if "=" is entered, start a new calculation
 			if (oper == '=')
 			{
-				DisplayHistory.Insert(0, Equation + DisplayNumber);     // add the whol equation to the display list
+				DisplayHistory.Insert(0, Equation + DisplayNumber);     // add the whole equation to the display list
 
 				history.Add(new Calculation());
 				histIndex++;
